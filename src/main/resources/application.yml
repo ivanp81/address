@@ -1,0 +1,39 @@
+spring.profiles.active: dev
+    
+---
+
+spring:
+  profiles: dev
+
+address-api-provider:
+    url: http://someApiUrl
+    key: someApiKey 
+
+---
+
+spring:
+  profiles: test
+
+address-api-provider:
+    url: http://localhost:9000
+    key: someApiKey 
+
+---
+
+spring:
+  profiles: testing
+
+address-api-provider:
+    url: https://api.getaddress.io
+    key: 1S34bq-ofk-XywJehN11PA12524 
+  
+---
+
+spring:
+  profiles: staging
+
+address-api-provider:
+    url: https://api.getaddress.io
+    key: 1S34bq-ofk-XywJehN11PA12524 
+
+
