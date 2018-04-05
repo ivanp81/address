@@ -25,7 +25,7 @@ spring:
 
 address-api-provider:
     url: https://api.getaddress.io
-    key: 1S34bq-ofk-XywJehN11PA12524 
+    key: YOUR_API_KEY 
   
 ---
 
@@ -34,6 +34,6 @@ spring:
 
 address-api-provider:
     url: https://api.getaddress.io
-    key: 1S34bq-ofk-XywJehN11PA12524 
+    key: YOUR_API_KEY 
 
 
