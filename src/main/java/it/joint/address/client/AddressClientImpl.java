@@ -10,16 +10,16 @@ import it.joint.address.provider.GetAddress;
 @Service
 public class AddressClientImpl implements AddressClient {
 
-    private GetAddress addressApi;
+    private GetAddress getAddress;
 
     @Autowired
-    public AddressClientImpl(final GetAddress addressApi) {
+    public AddressClientImpl(final GetAddress getAddress) {
     	
-        this.addressApi = addressApi;
+        this.getAddress = getAddress;
     }
     
     public AddressResponse findAddresses(String postCode) {
     	
-        return addressApi.find(postCode);
+        return getAddress.find(postCode);
     }
 }
