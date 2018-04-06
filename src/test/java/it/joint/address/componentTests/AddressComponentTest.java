@@ -2,64 +2,66 @@ package it.joint.address.componentTests;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
-import it.joint.address.BaseTest;
+import it.joint.address.client.provider.AddressResponse;
+import it.joint.address.util.TestUtil;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
+import java.util.Arrays;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class AddressComponentTest extends BaseTest {
+public class AddressComponentTest {
 
 	@LocalServerPort
-	private int randomPort;
+	int port;
     
-	@Autowired
-	private UriComponentsBuilder localHostUrl;
-	
 	@Rule
 	public WireMockRule addressApiService = new WireMockRule(9000);
 
+	String validPostCode = "XX200X";
+
+	AddressResponse expectedResponse;
+    
+	@Before
+    public void setUp() throws Exception {
+		
+		AddressResponse.Builder buildExpectedResponse = new AddressResponse.Builder();
+		
+		expectedResponse = buildExpectedResponse
+						   .withLatitude("51.390205383300781")
+			               .withLongitude("-0.13203597068786621")
+			               .withAddresses(Arrays.asList(new String[] { "10 Watkin Terrace, , , , , Northampton, Northamptonshire"}))
+			               .build();
+    }
+	
 	@Test
-	public void givenValidPostCode_whenGetFindUrl_thenStatusCodeIs200AndBodyIsExpectedResponse() throws Exception {
-
-		String validPostCode = "XX200X";
-
-		String findPath = UriComponentsBuilder
-						  .fromPath("/find/{postcode}")
-		         	      .buildAndExpand(validPostCode)
-		         		  .toString();
+	public void givenValidPostCode_whenGetFind_thenReturnAddressResponse() throws Exception {
 		
-		String findUrl = localHostUrl
-				         .port(randomPort)
-				         .path(findPath)
-				         .buildAndExpand(validPostCode)
-				         .toString();
-		
-		addressApiService.stubFor(get(urlPathEqualTo(findPath))
-						 .willReturn(aResponse()
-								 	 .withBody(expectedResponseJson())
-								 	 .withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-								 	 .withStatus(200)));
+		addressApiService.stubFor(get(urlPathEqualTo("/find/" + validPostCode))
+			.willReturn(aResponse()
+			.withBody(TestUtil.fileAsJson("classpath:addressResponse.json"))
+			.withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+			.withStatus(200)));
 
-		when()
-		.get(findUrl)
-		.then()
-		.statusCode(is(200))
-		.body(is(expectedResponse.toJsonString()));
+		
+		when().get(String.format("http://localhost:%s/find/" + validPostCode, port))
+			.then()
+			.statusCode(is(200))
+			.body(is(expectedResponse.toJsonString()));
 	}
 }

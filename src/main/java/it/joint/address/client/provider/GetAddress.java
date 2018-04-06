@@ -1,6 +1,6 @@
 package it.joint.address.client.provider;
 
-public interface AddressApi {
+public interface GetAddress {
 
 	public AddressResponse find(String postCode);
 }

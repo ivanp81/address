@@ -1,4 +1,4 @@
-package it.joint.address.client.provider.template.security;
+package it.joint.address.client.provider.security;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
-import it.joint.address.client.provider.template.support.HttpRequestDecorator;
+import it.joint.address.client.provider.support.HttpRequestDecorator;
 
 public class ApiKeyParameterRequestInterceptor implements ClientHttpRequestInterceptor {
 

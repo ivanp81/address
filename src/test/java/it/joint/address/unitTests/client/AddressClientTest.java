@@ -9,41 +9,47 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
+import static org.mockito.BDDMockito.then;
 
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import it.joint.address.client.AddressClient;
 import it.joint.address.client.AddressClientImpl;
-import it.joint.address.client.provider.AddressApi;
+import it.joint.address.client.provider.GetAddress;
 import it.joint.address.client.provider.AddressResponse;
 
 @RunWith(SpringRunner.class)
 public class AddressClientTest {
     
-	private AddressClient addressClient;
-    private AddressApi addressApi;
-    private AddressResponse expectedResponse;
+	AddressClient addressClient;
+	
+	@MockBean
+    GetAddress getAddress;
+	
+	String validPostCode = "XX200X";
+	
+	AddressResponse expectedResponse;
     
     @Before
     public void setUp() throws Exception {
-        
     	initMocks(this);
-    	addressApi = mock(AddressApi.class);
-        addressClient = new AddressClientImpl(addressApi);
-        expectedResponse = mock(AddressResponse.class);
+        addressClient = new AddressClientImpl(getAddress);
+        expectedResponse = new AddressResponse.Builder().withLatitude("12345").withLongitude("12345").build();
     }
     
     @Test
-    public void givenValidPostCode_whenFindAddresses_thenActualResponseEqualToExpectedResponse() throws Exception {
+    public void givenValidPostCode_whenFindAddresses_thenReturnAddressResponse() throws Exception {
 
-    	String validPostCode = "XX200X";
+        given(getAddress.find(validPostCode))
+        	.willReturn(expectedResponse);
     	
-        given(addressApi.find(validPostCode))
-        .willReturn(expectedResponse);
-    	
-        AddressResponse actualResponse = addressClient.findAddresses(validPostCode);
+        AddressResponse addressResponse = addressClient.findAddresses(validPostCode);
         
-        assertThat(actualResponse, equalTo(expectedResponse));
+        then(getAddress)
+    		.should()
+    		.find(validPostCode);
+        
+        assertThat(addressResponse, equalTo(expectedResponse));
     }
 }

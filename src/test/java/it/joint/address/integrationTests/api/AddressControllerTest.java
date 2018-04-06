@@ -1,5 +1,6 @@
 package it.joint.address.integrationTests.api;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
@@ -10,44 +11,52 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import it.joint.address.BaseTest;
 import it.joint.address.api.AddressController;
 import it.joint.address.client.AddressClient;
+import it.joint.address.client.provider.AddressResponse;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(AddressController.class)
 @ActiveProfiles("test")
-public class AddressControllerTest extends BaseTest {
+public class AddressControllerTest {
 
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @MockBean
-    private AddressClient addressClient;
+    AddressClient addressClient;
+    
+    AddressResponse expectedResponse;
+    
+    @Before
+    public void setUp() throws Exception {
+    	initMocks(this);
+        expectedResponse = new AddressResponse.Builder().withLatitude("12345").withLongitude("12345").build();
+    }
     
     @Test
-    public void givenValidPostCode_whenGetFindUrl_thenStatusCodeIsOkAndContentIsExpectedResponse() throws Exception {
+    public void givenValidPostCode_whenGetFind_thenReturnAddressResponse() throws Exception {
 
         String validPostCode = "XX200X";
 
-        String findUrl = UriComponentsBuilder
-        			     .fromPath("/find/{postcode}")
-				 		 .buildAndExpand(validPostCode)
-				 		 .toString();
-
         given(addressClient.findAddresses(validPostCode))
-        .willReturn(expectedResponse);
+        	.willReturn(expectedResponse);
 
-        mvc.perform(get(findUrl)
-        		   .contentType(MediaType.APPLICATION_JSON))
-                   .andExpect(status().isOk())
-                   .andExpect(content().string(expectedResponse.toJsonString()));
+        mvc.perform(get("/find/" + validPostCode)
+        	.contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().string(expectedResponse.toJsonString()));
+        
+        then(addressClient)
+			.should()
+			.findAddresses(validPostCode);
     }    
 }

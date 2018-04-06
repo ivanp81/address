@@ -2,10 +2,10 @@ package it.joint.address.integrationTests.client;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
-import it.joint.address.BaseTest;
 import it.joint.address.client.AddressClient;
 import it.joint.address.client.provider.AddressResponse;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,42 +14,43 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class AddressClientStubTest extends BaseTest {
+public class AddressClientStubTest {
 
 	@Autowired
-	private AddressClient addressClient;
+	AddressClient addressClient;
 
+	String validPostCode = "XX200X";
+	
+	AddressResponse expectedResponse;
+    
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule(9000);
 
+	@Before
+    public void setUp() throws Exception {
+		expectedResponse = new AddressResponse.Builder().withLatitude("12345").withLongitude("12345").build();
+    }
+	
 	@Test
-	public void givenValidPostCode_whenFindAddresses_thenActualResponseIsExpectedResponse() throws Exception {
+	public void givenValidPostCode_whenFindAddresses_thenReturnAddressResponse() throws Exception {
 
-		String validPostCode = "XX200X";
-		
-		String findUrl = UriComponentsBuilder
-						 .fromPath("/find/{postcode}")
-		         	     .buildAndExpand(validPostCode)
-		         		 .toString();
-		
-		wireMockRule.stubFor(get(urlPathEqualTo(findUrl))
-					.willReturn(aResponse()
-								.withBody(expectedResponse.toJsonString())
-								.withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-								.withStatus(200)));
+		wireMockRule.stubFor(get(urlPathEqualTo("/find/" + validPostCode))
+			.willReturn(aResponse()
+					.withBody(expectedResponse.toJsonString())
+					.withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+					.withStatus(200)));
 
 		AddressResponse actualResponse = addressClient.findAddresses(validPostCode);
 		
-		assertThat(actualResponse, is(expectedResponse));
+		assertThat(actualResponse, equalTo(expectedResponse));
 	}
 }

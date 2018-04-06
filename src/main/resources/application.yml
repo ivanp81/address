@@ -25,7 +25,7 @@ spring:
 
 address-api-provider:
     url: https://api.getaddress.io
-    key: YOUR_API_KEY 
+    key: ZZThLDr3Sk2ZCGp55vGTTQ12995 
   
 ---
 
