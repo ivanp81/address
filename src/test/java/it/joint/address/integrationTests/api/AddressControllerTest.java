@@ -29,15 +29,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AddressControllerTest {
 
     @Autowired
-    MockMvc mvc;
+    private MockMvc mvc;
 
     @MockBean
-    AddressClient addressClient;
+    private AddressClient addressClient;
     
     AddressResponse expectedResponse;
     
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     	initMocks(this);
         expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
     }

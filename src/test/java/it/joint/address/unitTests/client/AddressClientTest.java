@@ -25,11 +25,11 @@ public class AddressClientTest {
 	AddressClient addressClient;
 	
 	@MockBean
-    GetAddress getAddress;
+	private GetAddress getAddress;
 	
-	String validPostCode = "XX200X";
+	private String validPostCode = "XX200X";
 	
-	AddressResponse expectedResponse;
+	private AddressResponse expectedResponse;
     
     @Before
     public void setUp() {

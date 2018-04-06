@@ -28,17 +28,17 @@ import java.util.Arrays;
 public class AddressComponentTest {
 
 	@LocalServerPort
-	int port;
+	private int port;
     
 	@Rule
 	public WireMockRule addressApiService = new WireMockRule(9000);
 
-	String validPostCode = "XX200X";
+	private String validPostCode = "XX200X";
 
-	AddressResponse expectedResponse;
+	private AddressResponse expectedResponse;
     
 	@Before
-    public void setUp() throws Exception {
+    public void setUp() {
 	
 		expectedResponse = new AddressResponse.Builder()
 				.withLatitude(51.39020538330078)

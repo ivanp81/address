@@ -25,10 +25,10 @@ public class AddressResponseTest {
     @Autowired
 	private JacksonTester<AddressResponse> json;
 
-    AddressResponse expectedResponse;
+    private AddressResponse expectedResponse;
     
 	@Before
-    public void setUp() throws Exception {
+    public void setUp() {
 		
 		expectedResponse = new AddressResponse.Builder()
 								.withLatitude(51.39020538330078)

@@ -21,7 +21,7 @@ public class AddressE2ETest {
 	@Autowired
 	private URI baseUri;
 	
-	String validPostCode = "XX200X";
+	private String validPostCode = "XX200X";
 	
 	@Test
 	public void givenValidPostCode_whenGetFind_thenStatusCodeIs200() {

@@ -26,17 +26,17 @@ import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 public class GetAddressStubTest {
 
 	@Autowired
-	GetAddress getAddress;
+	private GetAddress getAddress;
 
-	String validPostCode = "XX200X";
+	private String validPostCode = "XX200X";
 	
-	AddressResponse expectedResponse;
+	private AddressResponse expectedResponse;
     
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule(9000);
 
 	@Before
-    public void setUp() throws Exception {
+    public void setUp() {
 		expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
     }
 	

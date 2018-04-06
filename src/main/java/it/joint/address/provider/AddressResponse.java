@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 @SuppressWarnings("serial")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AddressResponse implements Serializable{

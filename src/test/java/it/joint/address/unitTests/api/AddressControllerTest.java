@@ -24,7 +24,7 @@ public class AddressControllerTest {
     @Mock
     private AddressClient addressClient;
     
-    String validPostCode = "XX200X";
+    private String validPostCode = "XX200X";
 	
     private AddressResponse expectedResponse;
     

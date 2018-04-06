@@ -21,14 +21,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GetAddressTest {
 
 	@Autowired
-	 GetAddress getAddress;
+	private GetAddress getAddress;
 	
-	String validPostCode = "XX200X";
+	private String validPostCode = "XX200X";
 	
-	AddressResponse expectedResponse;
+	private AddressResponse expectedResponse;
     
 	@Before
-    public void setUp() throws Exception {
+    public void setUp() {
 		expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
     }
 	

@@ -19,12 +19,12 @@ import static org.mockito.Mockito.spy;
 @RunWith(SpringRunner.class)
 public class GetApiTemplateTest {
     
-	GetAddressTemplate getAddressTemplate;
-    RestTemplate restTemplate;
+	private GetAddressTemplate getAddressTemplate;
+	private RestTemplate restTemplate;
     
-    AddressResponse expectedResponse;
+	private AddressResponse expectedResponse;
     
-    String validPostCode = "XX200X";
+	private String validPostCode = "XX200X";
     
     @Before
     public void setUp() throws Exception {
