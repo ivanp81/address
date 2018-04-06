@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import it.joint.address.api.AddressController;
 import it.joint.address.client.AddressClient;
-import it.joint.address.client.provider.AddressResponse;
+import it.joint.address.provider.AddressResponse;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -29,10 +29,10 @@ public class AddressControllerTest {
     private AddressResponse expectedResponse;
     
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         initMocks(this);
         addressController = new AddressController(addressClient);
-        expectedResponse = new AddressResponse.Builder().withLatitude("12345").withLongitude("12345").build();
+        expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
     }
     
     @Test

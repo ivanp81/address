@@ -1,4 +1,4 @@
-package it.joint.address.unitTests.client.provider;
+package it.joint.address.unitTests.provider;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,15 +6,15 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import it.joint.address.provider.AddressResponse;
+import it.joint.address.provider.impl.GetAddressTemplate;
+
 import static org.mockito.BDDMockito.then;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
-
-import it.joint.address.client.provider.impl.GetAddressTemplate;
-import it.joint.address.client.provider.AddressResponse;
 
 @RunWith(SpringRunner.class)
 public class GetApiTemplateTest {
@@ -33,7 +33,7 @@ public class GetApiTemplateTest {
     	getAddressTemplate = spy(getAddressTemplate);
     	restTemplate = mock(RestTemplate.class);
     	
-    	expectedResponse = new AddressResponse.Builder().withLatitude("12345").withLongitude("12345").build();
+    	expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
     }
     
     @Test

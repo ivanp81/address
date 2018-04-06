@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import it.joint.address.api.AddressController;
 import it.joint.address.client.AddressClient;
-import it.joint.address.client.provider.AddressResponse;
+import it.joint.address.provider.AddressResponse;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.mockito.BDDMockito.given;
@@ -39,7 +39,7 @@ public class AddressControllerTest {
     @Before
     public void setUp() throws Exception {
     	initMocks(this);
-        expectedResponse = new AddressResponse.Builder().withLatitude("12345").withLongitude("12345").build();
+        expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
     }
     
     @Test

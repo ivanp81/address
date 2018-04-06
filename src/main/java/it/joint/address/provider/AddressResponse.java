@@ -1,4 +1,4 @@
-package it.joint.address.client.provider;
+package it.joint.address.provider;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,27 +9,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AddressResponse implements Serializable{
 
-	private String latitude;
-	private String longitude;
+	private Double latitude;
+	private Double longitude;
 	private List<String> addresses;
 
 	public AddressResponse() {
 		super();
 	}
  
-	public String getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 
-	public String getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 
@@ -68,20 +68,20 @@ public class AddressResponse implements Serializable{
 	
     public static class Builder {
 
-    	private String latitude;
-    	private String longitude;
+    	private Double latitude;
+    	private Double longitude;
     	private List<String> addresses;
 
         public Builder() {
 
         }
 
-        public Builder withLatitude(String latitude){
+        public Builder withLatitude(Double latitude){
             this.latitude = latitude;
             return this; 
         }
 
-        public Builder withLongitude(String longitude){
+        public Builder withLongitude(Double longitude){
             this.longitude = longitude;
             return this; 
         }

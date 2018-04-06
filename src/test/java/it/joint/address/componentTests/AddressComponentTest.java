@@ -2,7 +2,7 @@ package it.joint.address.componentTests;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
-import it.joint.address.client.provider.AddressResponse;
+import it.joint.address.provider.AddressResponse;
 import it.joint.address.util.TestUtil;
 
 import org.junit.Before;
@@ -39,15 +39,13 @@ public class AddressComponentTest {
     
 	@Before
     public void setUp() throws Exception {
-		
-		AddressResponse.Builder buildExpectedResponse = new AddressResponse.Builder();
-		
-		expectedResponse = buildExpectedResponse
-						   .withLatitude("51.390205383300781")
-			               .withLongitude("-0.13203597068786621")
-			               .withAddresses(Arrays.asList(new String[] { "10 Watkin Terrace, , , , , Northampton, Northamptonshire"}))
-			               .build();
-    }
+	
+		expectedResponse = new AddressResponse.Builder()
+				.withLatitude(51.39020538330078)
+				.withLongitude(-0.1320359706878662)
+				.withAddresses(Arrays.asList(new String[] { "10 Watkin Terrace, , , , , Northampton, Northamptonshire"}))
+				.build();
+	}
 	
 	@Test
 	public void givenValidPostCode_whenGetFind_thenReturnAddressResponse() throws Exception {

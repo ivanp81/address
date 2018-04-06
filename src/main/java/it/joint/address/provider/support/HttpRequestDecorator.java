@@ -1,4 +1,4 @@
-package it.joint.address.client.provider.support;
+package it.joint.address.provider.support;
 
 import java.net.URI;
 

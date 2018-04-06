@@ -1,6 +1,6 @@
 package it.joint.address.client;
 
-import it.joint.address.client.provider.AddressResponse;
+import it.joint.address.provider.AddressResponse;
 
 public interface AddressClient {
 

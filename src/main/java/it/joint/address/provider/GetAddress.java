@@ -1,4 +1,4 @@
-package it.joint.address.client.provider;
+package it.joint.address.provider;
 
 public interface GetAddress {
 

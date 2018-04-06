@@ -14,7 +14,8 @@ address-api-provider:
 spring:
   profiles: test
 
-address-api-provider:
+address:
+  provider:
     url: http://localhost:9000
     key: someApiKey 
 
@@ -23,17 +24,17 @@ address-api-provider:
 spring:
   profiles: testing
 
-address-api-provider:
+address:
+  provider:
     url: https://api.getaddress.io
-    key: YOUR_API_KEY 
+    key: ZZThLDr3Sk2ZCGp55vGTTQ12995 
   
 ---
 
 spring:
   profiles: staging
 
-address-api-provider:
+address:
+  provider:
     url: https://api.getaddress.io
     key: YOUR_API_KEY 
-
-

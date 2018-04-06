@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.joint.address.client.AddressClient;
-import it.joint.address.client.provider.AddressResponse;
+import it.joint.address.provider.AddressResponse;
 
 @RestController
 public class AddressController {

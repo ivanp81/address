@@ -1,9 +1,9 @@
-package it.joint.address.integrationTests.client;
+package it.joint.address.integrationTests.provider;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
-import it.joint.address.client.AddressClient;
-import it.joint.address.client.provider.AddressResponse;
+import it.joint.address.provider.AddressResponse;
+import it.joint.address.provider.GetAddress;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,10 +23,10 @@ import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class AddressClientStubTest {
+public class GetAddressStubTest {
 
 	@Autowired
-	AddressClient addressClient;
+	GetAddress getAddress;
 
 	String validPostCode = "XX200X";
 	
@@ -37,7 +37,7 @@ public class AddressClientStubTest {
 
 	@Before
     public void setUp() throws Exception {
-		expectedResponse = new AddressResponse.Builder().withLatitude("12345").withLongitude("12345").build();
+		expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
     }
 	
 	@Test
@@ -49,7 +49,7 @@ public class AddressClientStubTest {
 					.withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 					.withStatus(200)));
 
-		AddressResponse actualResponse = addressClient.findAddresses(validPostCode);
+		AddressResponse actualResponse = getAddress.find(validPostCode);
 		
 		assertThat(actualResponse, equalTo(expectedResponse));
 	}

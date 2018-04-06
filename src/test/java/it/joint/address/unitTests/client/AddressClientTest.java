@@ -16,8 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import it.joint.address.client.AddressClient;
 import it.joint.address.client.AddressClientImpl;
-import it.joint.address.client.provider.GetAddress;
-import it.joint.address.client.provider.AddressResponse;
+import it.joint.address.provider.AddressResponse;
+import it.joint.address.provider.GetAddress;
 
 @RunWith(SpringRunner.class)
 public class AddressClientTest {
@@ -32,10 +32,10 @@ public class AddressClientTest {
 	AddressResponse expectedResponse;
     
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     	initMocks(this);
         addressClient = new AddressClientImpl(getAddress);
-        expectedResponse = new AddressResponse.Builder().withLatitude("12345").withLongitude("12345").build();
+        expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
     }
     
     @Test

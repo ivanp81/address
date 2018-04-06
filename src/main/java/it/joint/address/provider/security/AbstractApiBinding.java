@@ -1,4 +1,4 @@
-package it.joint.address.client.provider.security;
+package it.joint.address.provider.security;
 
 import java.util.LinkedList;
 import java.util.List;

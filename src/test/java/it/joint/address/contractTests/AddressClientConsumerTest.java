@@ -7,7 +7,7 @@ import au.com.dius.pact.consumer.PactVerification;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.model.RequestResponsePact;
 import it.joint.address.client.AddressClient;
-import it.joint.address.client.provider.AddressResponse;
+import it.joint.address.provider.AddressResponse;
 import it.joint.address.util.TestUtil;
 
 import org.apache.http.entity.ContentType;
@@ -40,14 +40,12 @@ public class AddressClientConsumerTest {
 	@Before
     public void setUp() throws Exception {
 		
-		AddressResponse.Builder buildExpectedResponse = new AddressResponse.Builder();
-		
-		expectedResponse = buildExpectedResponse
-						   .withLatitude("51.390205383300781")
-			               .withLongitude("-0.13203597068786621")
-			               .withAddresses(Arrays.asList(new String[] { "10 Watkin Terrace, , , , , Northampton, Northamptonshire"}))
-			               .build();
-    }
+		expectedResponse = new AddressResponse.Builder()
+				.withLatitude(51.39020538330078)
+				.withLongitude(-0.1320359706878662)
+				.withAddresses(Arrays.asList(new String[] { "10 Watkin Terrace, , , , , Northampton, Northamptonshire"}))
+				.build();
+	}
 	
     @Rule
     public PactProviderRuleMk2 addressApiService = new PactProviderRuleMk2("address_api_service", "localhost", 9000, this);

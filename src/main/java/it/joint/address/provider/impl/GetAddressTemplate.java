@@ -1,18 +1,18 @@
-package it.joint.address.client.provider.impl;
+package it.joint.address.provider.impl;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import it.joint.address.client.provider.GetAddress;
-import it.joint.address.client.provider.security.AbstractApiBinding;
-import it.joint.address.client.provider.AddressResponse;
+import it.joint.address.provider.AddressResponse;
+import it.joint.address.provider.GetAddress;
+import it.joint.address.provider.security.AbstractApiBinding;
 
 @Component
 public class GetAddressTemplate extends AbstractApiBinding implements GetAddress {
 	
-	public GetAddressTemplate(@Value("${address-api-provider.url}") final String apiUrl, 
-						      @Value("${address-api-provider.key}") final String apiKey) {
+	public GetAddressTemplate(@Value("${address.provider.url}") final String apiUrl, 
+						      @Value("${address.provider.key}") final String apiKey) {
 		super(apiUrl, apiKey);
 	}
 	
