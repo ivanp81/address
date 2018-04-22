@@ -1,10 +1,11 @@
-# address microservice
+# Address microservice
 
 This is a proof-of-concept application which demonstrates, against a simple Spring Boot application, the following: 
 
-- component containerization through Docker
-- various type of test coming from the test pyramid
-- perform test through a Jenkins Pipeline 
+- application containerization through Docker
+- application execution inside Kubernetes
+- testing strategies
+- continuous integration thorough a Jenkins server using the Kubernetes plugin
 
 ## Run the test
 
@@ -40,6 +41,6 @@ $ docker...
 $ docker...
 ```
 ## Pipeline
-The pipeline is run by a Jenkins Server execute as a Pod inside Kubernetes. It uses the Kubernetes Plugin. You can find the code for the pipeline in the following repository:
+You can find the code for the pipeline in the following repository:
 
 - https://github.com/ivanp81/address-pipeline
