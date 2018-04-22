@@ -25,32 +25,31 @@ import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 @ActiveProfiles("test")
 public class GetAddressStubTest {
 
-	@Autowired
-	private GetAddress getAddress;
+    @Autowired
+    private GetAddress getAddress;
 
-	private String validPostCode = "XX200X";
-	
-	private AddressResponse expectedResponse;
-    
-	@Rule
-	public WireMockRule wireMockRule = new WireMockRule(9000);
+    private String validPostCode = "XX200X";
 
-	@Before
+    private AddressResponse expectedResponse;
+
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule(9000);
+
+    @Before
     public void setUp() {
-		expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
+	expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078)
+		.withLongitude(-0.1320359706878662).build();
     }
-	
-	@Test
-	public void givenValidPostCode_whenFindAddresses_thenReturnAddressResponse() throws Exception {
 
-		wireMockRule.stubFor(get(urlPathEqualTo("/find/" + validPostCode))
-			.willReturn(aResponse()
-					.withBody(expectedResponse.toJsonString())
-					.withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-					.withStatus(200)));
+    @Test
+    public void givenValidPostCode_whenFindAddresses_thenReturnAddressResponse() throws Exception {
 
-		AddressResponse actualResponse = getAddress.find(validPostCode);
-		
-		assertThat(actualResponse, equalTo(expectedResponse));
-	}
+	wireMockRule.stubFor(get(urlPathEqualTo("/find/" + validPostCode))
+		.willReturn(aResponse().withBody(expectedResponse.toJsonString())
+			.withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(200)));
+
+	AddressResponse actualResponse = getAddress.find(validPostCode);
+
+	assertThat(actualResponse, equalTo(expectedResponse));
+    }
 }

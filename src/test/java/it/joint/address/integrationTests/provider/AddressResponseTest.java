@@ -23,35 +23,35 @@ import java.util.Arrays;
 public class AddressResponseTest {
 
     @Autowired
-	private JacksonTester<AddressResponse> json;
+    private JacksonTester<AddressResponse> json;
 
     private AddressResponse expectedResponse;
-    
-	@Before
-    public void setUp() {
-		
-		expectedResponse = new AddressResponse.Builder()
-								.withLatitude(51.39020538330078)
-								.withLongitude(-0.1320359706878662)
-								.withAddresses(Arrays.asList(new String[] { "10 Watkin Terrace, , , , , Northampton, Northamptonshire"}))
-								.build();
-    }
-	
-	@Test
-	public void testSerializedAddressResponse() throws Exception {
-		assertThat(serializedAddressResponse()).isEqualToJson(TestUtil.fileAsJson("classpath:addressResponse.json"));
-	}
 
-	@Test
-	public void testDeserializedAddressResponse() throws Exception {
-		assertThat(deserializedAddressResponse()).isEqualTo(expectedResponse);
-	}
-	
-	private JsonContent<AddressResponse> serializedAddressResponse() throws IOException {
-		return this.json.write(expectedResponse);
-	}
-	
-	private ObjectContent<AddressResponse> deserializedAddressResponse() throws IOException {
-		return this.json.parse(TestUtil.fileAsJson("classpath:addressResponse.json"));
-	}
+    @Before
+    public void setUp() {
+
+	expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078)
+		.withLongitude(-0.1320359706878662)
+		.withAddresses(
+			Arrays.asList(new String[] { "10 Watkin Terrace, , , , , Northampton, Northamptonshire" }))
+		.build();
+    }
+
+    @Test
+    public void testSerializedAddressResponse() throws Exception {
+	assertThat(serializedAddressResponse()).isEqualToJson(TestUtil.fileAsJson("classpath:addressResponse.json"));
+    }
+
+    @Test
+    public void testDeserializedAddressResponse() throws Exception {
+	assertThat(deserializedAddressResponse()).isEqualTo(expectedResponse);
+    }
+
+    private JsonContent<AddressResponse> serializedAddressResponse() throws IOException {
+	return this.json.write(expectedResponse);
+    }
+
+    private ObjectContent<AddressResponse> deserializedAddressResponse() throws IOException {
+	return this.json.parse(TestUtil.fileAsJson("classpath:addressResponse.json"));
+    }
 }

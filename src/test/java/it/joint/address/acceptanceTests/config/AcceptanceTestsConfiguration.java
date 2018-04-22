@@ -8,11 +8,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AcceptanceTestsConfiguration {
-	
-	private static final String ADDRESS_URL = System.getProperty("acceptance.address.url", "http://localhost:8080");
-	
-	@Bean
-	public URI baseUri() throws URISyntaxException {
-		return new URI(ADDRESS_URL);
-	}
+
+    private static final String ADDRESS_URL = System.getProperty("acceptance.address.url", "http://localhost:8080");
+
+    @Bean
+    public URI baseUri() throws URISyntaxException {
+	return new URI(ADDRESS_URL);
+    }
 }

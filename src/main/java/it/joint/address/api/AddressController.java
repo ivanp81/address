@@ -12,15 +12,15 @@ import it.joint.address.provider.AddressResponse;
 @RestController
 public class AddressController {
 
-	private final AddressClient addressClient;
+    private final AddressClient addressClient;
 
-	@Autowired
-	public AddressController(final AddressClient addressClient) {
-		this.addressClient = addressClient;
-	}
+    @Autowired
+    public AddressController(final AddressClient addressClient) {
+	this.addressClient = addressClient;
+    }
 
-	@RequestMapping(value = "/find/{postCode}", method = RequestMethod.GET)
-	public AddressResponse findAddresses(@PathVariable String postCode) {
-		return addressClient.findAddresses(postCode);
-	}
+    @RequestMapping(value = "/find/{postCode}", method = RequestMethod.GET)
+    public AddressResponse findAddresses(@PathVariable String postCode) {
+	return addressClient.findAddresses(postCode);
+    }
 }

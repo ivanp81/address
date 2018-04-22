@@ -10,18 +10,16 @@ import it.joint.address.provider.security.AbstractApiBinding;
 
 @Component
 public class GetAddressTemplate extends AbstractApiBinding implements GetAddress {
-	
-	public GetAddressTemplate(@Value("${address.provider.url}") final String apiUrl, 
-						      @Value("${address.provider.key}") final String apiKey) {
-		super(apiUrl, apiKey);
-	}
-	
-	public AddressResponse find(String postCode) {
-		
-    	String url = UriComponentsBuilder.fromPath("/find/{postCode}")
-    									 .buildAndExpand(postCode)
-				  						 .toString();
-    	
-        return getRestTemplate().getForObject(url, AddressResponse.class);
+
+    public GetAddressTemplate(@Value("${address.provider.url}") final String apiUrl,
+	    @Value("${address.provider.key}") final String apiKey) {
+	super(apiUrl, apiKey);
+    }
+
+    public AddressResponse find(String postCode) {
+
+	String url = UriComponentsBuilder.fromPath("/find/{postCode}").buildAndExpand(postCode).toString();
+
+	return getRestTemplate().getForObject(url, AddressResponse.class);
     }
 }

@@ -21,35 +21,33 @@ import it.joint.address.provider.GetAddress;
 
 @RunWith(SpringRunner.class)
 public class AddressClientTest {
-    
-	AddressClient addressClient;
-	
-	@MockBean
-	private GetAddress getAddress;
-	
-	private String validPostCode = "XX200X";
-	
-	private AddressResponse expectedResponse;
-    
+
+    AddressClient addressClient;
+
+    @MockBean
+    private GetAddress getAddress;
+
+    private String validPostCode = "XX200X";
+
+    private AddressResponse expectedResponse;
+
     @Before
     public void setUp() {
-    	initMocks(this);
-        addressClient = new AddressClientImpl(getAddress);
-        expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
+	initMocks(this);
+	addressClient = new AddressClientImpl(getAddress);
+	expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078)
+		.withLongitude(-0.1320359706878662).build();
     }
-    
+
     @Test
     public void givenValidPostCode_whenFindAddresses_thenReturnAddressResponse() throws Exception {
 
-        given(getAddress.find(validPostCode))
-        	.willReturn(expectedResponse);
-    	
-        AddressResponse addressResponse = addressClient.findAddresses(validPostCode);
-        
-        then(getAddress)
-    		.should()
-    		.find(validPostCode);
-        
-        assertThat(addressResponse, equalTo(expectedResponse));
+	given(getAddress.find(validPostCode)).willReturn(expectedResponse);
+
+	AddressResponse addressResponse = addressClient.findAddresses(validPostCode);
+
+	then(getAddress).should().find(validPostCode);
+
+	assertThat(addressResponse, equalTo(expectedResponse));
     }
 }

@@ -27,39 +27,34 @@ import java.util.Arrays;
 @ActiveProfiles("test")
 public class AddressComponentTest {
 
-	@LocalServerPort
-	private int port;
-    
-	@Rule
-	public WireMockRule addressApiService = new WireMockRule(9000);
+    @LocalServerPort
+    private int port;
 
-	private String validPostCode = "XX200X";
+    @Rule
+    public WireMockRule addressApiService = new WireMockRule(9000);
 
-	private AddressResponse expectedResponse;
-    
-	@Before
+    private String validPostCode = "XX200X";
+
+    private AddressResponse expectedResponse;
+
+    @Before
     public void setUp() {
-	
-		expectedResponse = new AddressResponse.Builder()
-				.withLatitude(51.39020538330078)
-				.withLongitude(-0.1320359706878662)
-				.withAddresses(Arrays.asList(new String[] { "10 Watkin Terrace, , , , , Northampton, Northamptonshire"}))
-				.build();
-	}
-	
-	@Test
-	public void givenValidPostCode_whenGetFind_thenReturnAddressResponse() throws Exception {
-		
-		addressApiService.stubFor(get(urlPathEqualTo("/find/" + validPostCode))
-			.willReturn(aResponse()
-			.withBody(TestUtil.fileAsJson("classpath:addressResponse.json"))
-			.withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-			.withStatus(200)));
 
-		
-		when().get(String.format("http://localhost:%s/find/" + validPostCode, port))
-			.then()
-			.statusCode(is(200))
-			.body(is(expectedResponse.toJsonString()));
-	}
+	expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078)
+		.withLongitude(-0.1320359706878662)
+		.withAddresses(
+			Arrays.asList(new String[] { "10 Watkin Terrace, , , , , Northampton, Northamptonshire" }))
+		.build();
+    }
+
+    @Test
+    public void givenValidPostCode_whenGetFind_thenReturnAddressResponse() throws Exception {
+
+	addressApiService.stubFor(get(urlPathEqualTo("/find/" + validPostCode))
+		.willReturn(aResponse().withBody(TestUtil.fileAsJson("classpath:addressResponse.json"))
+			.withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).withStatus(200)));
+
+	when().get(String.format("http://localhost:%s/find/" + validPostCode, port)).then().statusCode(is(200))
+		.body(is(expectedResponse.toJsonString()));
+    }
 }

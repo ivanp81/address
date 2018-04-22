@@ -20,23 +20,24 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @ActiveProfiles("testing")
 public class GetAddressTest {
 
-	@Autowired
-	private GetAddress getAddress;
-	
-	private String validPostCode = "XX200X";
-	
-	private AddressResponse expectedResponse;
-    
-	@Before
-    public void setUp() {
-		expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
-    }
-	
-	@Test
-	public void givenValidPostCode_whenFindInGetAddress_thenReturnAddressResponse() throws Exception {
-		
-		AddressResponse addressResponse = getAddress.find(validPostCode);
+    @Autowired
+    private GetAddress getAddress;
 
-		assertThat(addressResponse, equalTo(expectedResponse));
-	}
+    private String validPostCode = "XX200X";
+
+    private AddressResponse expectedResponse;
+
+    @Before
+    public void setUp() {
+	expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078)
+		.withLongitude(-0.1320359706878662).build();
+    }
+
+    @Test
+    public void givenValidPostCode_whenFindInGetAddress_thenReturnAddressResponse() throws Exception {
+
+	AddressResponse addressResponse = getAddress.find(validPostCode);
+
+	assertThat(addressResponse, equalTo(expectedResponse));
+    }
 }

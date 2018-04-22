@@ -19,34 +19,32 @@ import static org.mockito.MockitoAnnotations.initMocks;
 @RunWith(SpringRunner.class)
 public class AddressControllerTest {
 
-	private AddressController addressController;
-   
+    private AddressController addressController;
+
     @Mock
     private AddressClient addressClient;
-    
+
     private String validPostCode = "XX200X";
-	
+
     private AddressResponse expectedResponse;
-    
+
     @Before
     public void setUp() {
-        initMocks(this);
-        addressController = new AddressController(addressClient);
-        expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
+	initMocks(this);
+	addressController = new AddressController(addressClient);
+	expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078)
+		.withLongitude(-0.1320359706878662).build();
     }
-    
+
     @Test
     public void givenValidPostCode_whenFindAddresses_thenReturnAddressResponse() throws Exception {
 
-    	given(addressClient.findAddresses(validPostCode))
-    		.willReturn(expectedResponse);
-	    
-        AddressResponse addressResponse = addressController.findAddresses(validPostCode);
-        
-        then(addressClient)
-			.should()
-			.findAddresses(validPostCode);
-    
-        assertThat(addressResponse, equalTo(expectedResponse));
+	given(addressClient.findAddresses(validPostCode)).willReturn(expectedResponse);
+
+	AddressResponse addressResponse = addressController.findAddresses(validPostCode);
+
+	then(addressClient).should().findAddresses(validPostCode);
+
+	assertThat(addressResponse, equalTo(expectedResponse));
     }
 }

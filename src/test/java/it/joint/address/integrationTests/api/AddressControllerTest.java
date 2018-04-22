@@ -33,30 +33,26 @@ public class AddressControllerTest {
 
     @MockBean
     private AddressClient addressClient;
-    
+
     AddressResponse expectedResponse;
-    
+
     @Before
     public void setUp() {
-    	initMocks(this);
-        expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078).withLongitude(-0.1320359706878662).build();
+	initMocks(this);
+	expectedResponse = new AddressResponse.Builder().withLatitude(51.39020538330078)
+		.withLongitude(-0.1320359706878662).build();
     }
-    
+
     @Test
     public void givenValidPostCode_whenGetFind_thenReturnAddressResponse() throws Exception {
 
-        String validPostCode = "XX200X";
+	String validPostCode = "XX200X";
 
-        given(addressClient.findAddresses(validPostCode))
-        	.willReturn(expectedResponse);
+	given(addressClient.findAddresses(validPostCode)).willReturn(expectedResponse);
 
-        mvc.perform(get("/find/" + validPostCode)
-        	.contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().string(expectedResponse.toJsonString()));
-        
-        then(addressClient)
-			.should()
-			.findAddresses(validPostCode);
-    }    
+	mvc.perform(get("/find/" + validPostCode).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		.andExpect(content().string(expectedResponse.toJsonString()));
+
+	then(addressClient).should().findAddresses(validPostCode);
+    }
 }
