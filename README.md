@@ -2,10 +2,10 @@
 
 This is a proof-of-concept application which demonstrates, against a simple Spring Boot application, the following: 
 
-- application containerization through Docker
-- application execution inside Kubernetes
+- containerization through Docker
 - testing strategies
 - continuous integration thorough a Jenkins server using the Kubernetes plugin
+- execution inside Kubernetes
 
 ## Run the test
 
