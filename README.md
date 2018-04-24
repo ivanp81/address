@@ -32,13 +32,13 @@ $ mvn clean package
 
 #### Build Docker images
 ```
-$ docker... 
+$ docker build --tag IMAGE_NAME .
 ```
 
 ## How to run
  
 ```
-$ docker...
+$ docker container run --name CONTAINER_NAME -p 8080:8080 IMAGE_NAME
 ```
 ## Pipeline
 You can find the code for the pipeline in the following repository:
