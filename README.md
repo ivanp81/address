@@ -7,6 +7,14 @@ This is a proof-of-concept application which demonstrates, against a simple Spri
 - continuous integration thorough a Jenkins server using the Kubernetes plugin
 - execution inside Kubernetes
 
+# Testing
+
+- Junit
+- Mockito
+- RestAssured
+- Spring Test
+- WireMock (for external service stubbing)
+
 ## Run the test
 
 #### Unit test  
