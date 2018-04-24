@@ -9,6 +9,13 @@ This is a proof-of-concept application which demonstrates, against a simple Spri
 
 # Testing
 
+Following are the assumption made for testing:
+
+- Unit tests perform both, behaviour (with a BDD style) and state verification
+- Some test duplication are possible as we want see the testing strategies from different point of view
+
+#### Framework
+
 - Junit
 - Mockito
 - RestAssured
