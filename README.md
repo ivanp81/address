@@ -14,6 +14,7 @@ This is a proof-of-concept application which demonstrates, against a simple Spri
 - RestAssured
 - Spring Test
 - WireMock (for external service stubbing)
+- Pact (for Consumer Driven Contract Test)
 
 ## Run the test
 
